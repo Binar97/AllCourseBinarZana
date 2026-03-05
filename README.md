@@ -1,0 +1,2 @@
+# AllCourseBinarZana
+سەرجەم کۆرسەکانم
