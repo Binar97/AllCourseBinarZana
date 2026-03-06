@@ -80,6 +80,39 @@
                <button class="download-btn" 
                onclick="window.location.href='https://drive.google.com/file/d/1T-7WG-RI9j_eeVjWna0fWoPjK89eFz7_/view?usp=drive_link'">
                 <i class="fa fa-download"></i> کلیک لێرە بکە بۆ زانیاری تەواوی کۆرسەکە</button>
+                <!-- '''''''''''''''''''''''''''' -->
+                 <div class="course-explanation-container">
+    <button class="explanation-toggle-btn" onclick="toggleExplanation()">
+        <i class="fa fa-info-circle"></i> بۆ ڕونکردنەوەی زیاتر کلیک لێرە بکە
+    </button>
+    
+    <div id="course-details" class="explanation-content">
+        <div class="explanation-inner">
+            <h3 class="expl-header">📘 کەتەلۆگی کۆرسی "نەخشەسازی سیستەمە ژمێریارییەکان بە مایکرۆسۆفت ئێکسڵ"</h3>
+            <p class="expl-sub">🚀 گەشتێکی پڕۆفیشناڵ بۆ بونیادنانی ٢٠ سیستەمی داتابەیسی پێشکەوتوو</p>
+            
+            <div class="expl-section">
+                <h4><i class="fas fa-star"></i> دەربارەی کۆرسەکە</h4>
+                <p>ئەم کۆرسە تەنها فێربوونی تیۆری نییە، بەڵکو گواستنەوەی ئەزموونی چەندین ساڵەی کارکردنە لەگەڵ کۆمپانیا و نووسینگەکان بۆ لای تۆ.</p>
+                <div class="warning-box">
+                    <strong>⚠️ ئاگاداری:</strong> ئەم شێوازی داڕشتنی کۆد و سیستەمانەی لێرە دەیانبینی، بەرهەمی داهێنانی خودی ڕاهێنەر (بینەر زانا خدر) و بە شێوازێکی تەواو پڕۆفشناڵ و بێ کێشە دیزاین کراون. لەهەر شوێنێک ئەم ستایلی کارکردنەت بینی، بزانە لەم کۆرسانەی ئێمەوە سەرچاوەی گرتووە، چونکە خۆم داڕێژەری کۆدەکانم بۆ ئەم کۆرسە و لەهیچ شوێنێک بەدەستم نەخستووە!
+                </div>
+            </div>
+
+            <div class="expl-section">
+                <h4><i class="fas fa-gem"></i> تایبەتمەندییە ناوازەکانی ئەم کۆرسە:</h4>
+                <ul class="expl-list">
+                    <li><i class="fas fa-lightbulb"></i> <strong>داهێنانی تایبەت:</strong> پڕۆسەکان بە شێوازێکی داهێنەرانە داڕژاون کە تەنها لای ئێمە دەست دەکەوێت.</li>
+                    <li><i class="fas fa-film"></i> <strong>ژینگەی فێربوون:</strong> وانەکان لە ڕێگەی ڤیدیۆی تۆمارکراوەوە لە گرووپی تایبەتی فەیسبووک بەردەست دەبن.</li>
+                    <li><i class="fas fa-clock"></i> <strong>سەربەخۆیی کات:</strong> فێرخواز دەتوانێت لە هەر کاتێکدا بێت سەیری وانەکان بکاتەوە.</li>
+                    <li><i class="fas fa-tools"></i> <strong>پشتیوانی تەکنیکی:</strong> چارەسەرکردنی کێشە تەکنیکییەکانت لە کاتی جێبەجێکردنی پڕۆژەکاندا.</li>
+                    <li><i class="fas fa-gift"></i> <strong>کەرەستەی ئامادە:</strong> دابینکردنی هەموو پێداویستییەکان (ئایکۆن، فۆنت، کۆدی ژمێریاری و فلتەری تایبەت).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- '======================' -->
             </div>
        </div>
 
@@ -381,6 +414,16 @@
             document.getElementById(pkgName).style.display = "block";
             evt.currentTarget.classList.add("active");
         }
+    </script>
+    <script>
+        function toggleExplanation() {
+    var content = document.getElementById("course-details");
+    if (content.style.display === "block") {
+        content.style.display = "none";
+    } else {
+        content.style.display = "block";
+    }
+}
     </script>
 
 </body>
