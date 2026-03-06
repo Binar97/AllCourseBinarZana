@@ -678,7 +678,7 @@ body {
 }
 
 /* ڕێکخستنی مۆبایل */
-@media(max-width:992px) {
+/* @media(max-width:992px) {
     .work { grid-template-columns: 1fr; }
     .container { 
         padding: 20px;
@@ -686,9 +686,158 @@ body {
         align-items: center;
     }
     .about { width: 100%; }
+} */
+ /* ڕێکخستنی مۆبایل و تابلێت */
+@media (max-width: 992px) {
+    .container { 
+        padding: 15px;
+        flex-direction: column; 
+        align-items: center;
+        gap: 20px; /* کەمکردنەوەی مەودای نێوان هەردوو کارتە سەرەکییەکە */
+    }
+
+    /* چاککردنی کارتی پڕۆفایل */
+    .profile-card { 
+        width: 100%; /* بۆ ئەوەی لە شاشە دەرنەچێت */
+        max-width: 450px; /* ڕێگری لەوە دەکات لەسەر تابلێت زۆر پان بێت */
+        padding: 1.5rem;
+    }
+
+    /* بچووککردنەوەی ناونیشانی دەربارە بۆ مۆبایل */
+    .about { 
+        width: 100%; 
+        padding: 1.5rem;
+        border-right: none;
+        border-top: 5px solid var(--accent-red); /* گۆڕینی هێڵەکە بۆ سەرەوە لە مۆبایلدا جوانترە */
+    }
+
+    .about-title {
+        font-size: 45px !important; /* بچووککردنەوەی فۆنتە نەسـتەعەلیقەکە بۆ مۆبایل */
+        line-height: 1.4 !important;
+    }
+
+    /* ڕێکخستنی لیستەکان و ئایکۆنەکان بۆ مۆبایل */
+    .stats-grid {
+        grid-template-columns: 1fr; /* لە مۆبایلدا داتاکان بخەرە ژێر یەکتر */
+    }
+
+    .workbox {
+        flex-direction: column; /* لە مۆبایلدا ئایکۆن و دەق بخەرە ژێر یەکتر */
+        text-align: center;
+        padding: 20px;
+    }
+
+    .workbox .icon {
+        margin: 0 auto; /* ناوەندکردنی ئایکۆنەکە */
+    }
+
+    /* چاککردنی بەشی ڕوونکردنەوەی کۆرس بۆ مۆبایل */
+    .expl-header {
+        font-size: 1rem;
+    }
 }
 
-/* '===================================================================' */.workbox .desc h3, 
+/* ڕێکخستن بۆ شاشەی زۆر بچووک (Mobile Small) */
+@media (max-width: 480px) {
+    .intro h2 {
+        font-size: 1.4rem;
+    }
+    .download-btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+}
+/* ===================================================================== */
+/* ستایلی بەشی ڕوونکردنەوەی کۆرس */
+
+.course-explanation-container {
+    margin-top: 15px;
+    width: 100%;
+    font-family: 'Rabar_015', sans-serif !important;
+}
+
+.explanation-toggle-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-white);
+    border: 1px dashed var(--accent-orange);
+    padding: 12px;
+    border-radius: 15px;
+    width: 100%;
+    cursor: pointer;
+    font-family: 'Rabar_015', sans-serif !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.explanation-toggle-btn:hover {
+    background: rgba(255, 140, 0, 0.1);
+}
+
+.explanation-content {
+    display: none; /* سەرەتا شاراوەیە */
+    background: rgba(10, 25, 47, 0.95);
+    border-radius: 20px;
+    margin-top: 15px;
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    overflow: hidden;
+    animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.explanation-inner {
+    padding: 20px;
+    text-align: right;
+    font-family: 'Rabar_015', sans-serif !important;
+}
+
+.expl-header { color: var(--accent-orange); margin-bottom: 5px; font-size: 1.1rem; }
+.expl-sub { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 20px; }
+
+.expl-section h4 {
+    color: var(--text-white);
+    margin: 15px 0 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.warning-box {
+    background: rgba(255, 75, 43, 0.1);
+    border-right: 4px solid var(--accent-red);
+    padding: 15px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.expl-list {
+    list-style: none;
+    padding: 0;
+}
+
+.expl-list li {
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--text-gray);
+}
+
+.expl-list li i {
+    color: var(--accent-orange);
+    margin-top: 4px;
+}
+/* '===================================================================' */
+.workbox .desc h3, 
 .workbox .desc p, 
 .tab-btn {
     font-family: 'Rabar_015', sans-serif !important;
