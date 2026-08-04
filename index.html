@@ -85,7 +85,9 @@
         }
 
         /* Lightning / Shimmer Effect */
-        .main-cat-btn::before {
+        .main-cat-btn::before,
+        .feedback-toggle-btn::before,
+        .page-btn::before {
             content: '';
             position: absolute;
             top: 0;
@@ -138,6 +140,208 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* ------------------ Feedback Section Styling ------------------ */
+        .feedback-container {
+            margin-top: 15px;
+            width: 100%;
+            direction: rtl;
+        }
+
+        .feedback-toggle-btn {
+            width: 100%;
+            padding: 15px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff !important;
+            background: linear-gradient(135deg, #1f293d 0%, #111827 100%);
+            border: 2px solid #ff6b00;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.25);
+            transition: all 0.3s ease;
+            animation: pulseGlow 2.5s infinite ease-in-out;
+        }
+
+        .feedback-toggle-btn * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .feedback-toggle-btn:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 8px 25px rgba(255, 107, 0, 0.5);
+            background: linear-gradient(135deg, #28354d 0%, #1a2332 100%);
+        }
+
+        .pointing-hand {
+            color: #ff6b00;
+            font-size: 20px;
+            animation: bounceHand 1s infinite alternate ease-in-out;
+        }
+
+        @keyframes bounceHand {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.3) rotate(-10deg); }
+        }
+
+        .feedback-content {
+            margin-top: 15px;
+            background: #111827;
+            border: 1px solid rgba(255, 107, 0, 0.35);
+            border-radius: 14px;
+            padding: 20px;
+            animation: fadeIn 0.4s ease-in-out;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .feedback-header {
+            text-align: center;
+            color: #ffffff;
+            font-size: 20px;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed rgba(255, 107, 0, 0.3);
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .feedback-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            align-items: center;
+        }
+
+        .feedback-card {
+            width: 100%;
+            max-width: 650px;
+            background: #1f293d;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            display: none; /* Controlled by JS Pagination */
+        }
+
+        .feedback-card.active-img {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .feedback-card:hover {
+            border-color: #ff6b00;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(255, 107, 0, 0.35);
+        }
+
+        .feedback-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* ------------------ Pagination Styling ------------------ */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+            direction: ltr; /* Keeps buttons left-to-right */
+        }
+
+        .page-btn {
+            background: linear-gradient(135deg, #1f293d 0%, #111827 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255, 107, 0, 0.4);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page-btn * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            border-color: #ff6b00;
+            color: #ff6b00;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 107, 0, 0.4);
+        }
+
+        .page-btn.active-page {
+            background: linear-gradient(135deg, #ff6b00 0%, #ff8800 100%);
+            color: #ffffff;
+            border-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.5);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+
+
+                /* ------------------ Animated Profile Picture ------------------ */
+       /* ------------------ 3D Animated Profile Picture ------------------ */
+.profile-pic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    /* ڕێگە دان بە دروستبوونی کاریگەری دووری و قووڵی 3D */
+    perspective: 1000px;
+}
+
+.profile-pic img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ff6b00;
+    box-shadow: 0 0 15px rgba(255, 107, 0, 0.4);
+    
+    /* چالاککردنی ئەنیمەیشنی 3D */
+    animation: depthMotion 5s infinite ease-in-out;
+    transition: transform 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+/* ڕاگرتنی جوڵەکە کاتێک ماوس دەچێتە سەر وێنەکە */
+.profile-pic img:hover {
+    transform: scale(1.1) translateZ(20px) rotate(0deg) !important;
+    box-shadow: 0 0 25px rgba(255, 107, 0, 0.8);
+}
+
+/* ئەنیمەیشنی چوونە دواوە و هاتنە پێشەوە لەگەڵ خوولانەوە */
+
     </style>
 </head>
 <body>
@@ -240,6 +444,59 @@
             </div>
         </div>
     </div>
+
+    <!-- ------------------ Feedback Section Start ------------------ -->
+    <div class="feedback-container">
+        <button class="feedback-toggle-btn" onclick="toggleFeedback()">
+            <i class="fas fa-comments" style="color: #ff6b00; font-size: 20px;"></i>
+            <span>فیدباکەکانی کۆرسی ئاستی باڵای ئێکسڵ</span>
+            <i class="fas fa-hand-pointer pointing-hand"></i>
+        </button>
+
+        <div id="feedback-details" class="feedback-content" style="display: none;">
+            <div class="feedback-inner">
+                <h3 class="feedback-header">
+                    <i class="fas fa-star" style="color: #ff6b00;"></i> 
+                    ڕاو بۆچوونی فێرخوازانی کۆرسی ئاستی باڵای ئێکسڵ
+                </h3>
+                
+                <div class="feedback-gallery" id="feedback-gallery">
+                <div class="feedback-card">
+                    <img src="images/Feedback/1.jpg" alt="Feedback 1">
+                </div>
+                <div class="feedback-card">
+                    <img src="images/Feedback/2.jpg" alt="Feedback 2">
+                </div>
+                <div class="feedback-card">
+                    <img src="images/Feedback/3.jpg" alt="Feedback 3">
+                </div>
+                <div class="feedback-card">
+                    <img src="images/Feedback/4.jpg" alt="Feedback 4">
+                </div>
+                <div class="feedback-card">
+                    <img src="images/Feedback/5.jpeg" alt="Feedback 5">
+                </div>
+                <div class="feedback-card">
+                    <img src="images/Feedback/6.jpg" alt="Feedback 6">
+                </div>
+                <div class="feedback-card">
+                    <img src="images/Feedback/7.jpg" alt="Feedback 7">
+                </div>
+                <div class="feedback-card">
+                    <img src="images/Feedback/8.jpg" alt="Feedback 8">
+                </div>
+                <div class="feedback-card">
+                    <img src="images/Feedback/9.jpeg" alt="Feedback 9">
+                </div>
+            </div>
+
+                <!-- Pagination Container -->
+                <div class="pagination-container" id="pagination-controls"></div>
+            </div>
+        </div>
+    </div>
+    <!-- ------------------ Feedback Section End ------------------ -->
+
 </div>
 
             </div>
@@ -288,7 +545,7 @@
 <div class="main-category-buttons">
     <button class="main-cat-btn" onclick="openMainCategory(event, 'excel-courses')">
         <img src="images/Excel.png" alt="Excel Logo">
-        <span>کۆرسی ئێکسڵ</span>
+        <span>کۆرسەکانی ئێکسڵ</span>
     </button>
     <button class="main-cat-btn" onclick="openMainCategory(event, 'csharp-courses')">
         <img src="images/Csharp.png" alt="C# Logo">
@@ -512,43 +769,112 @@
 </div>
    </div>
 
-   <script>
-       function openMainCategory(evt, catName) {
-           var i, maincontent, mainbtn;
-           maincontent = document.getElementsByClassName("main-category-content");
-           for (i = 0; i < maincontent.length; i++) {
-               maincontent[i].classList.remove("active");
-           }
-           mainbtn = document.getElementsByClassName("main-cat-btn");
-           for (i = 0; i < mainbtn.length; i++) {
-               mainbtn[i].classList.remove("active");
-           }
-           document.getElementById(catName).classList.add("active");
-           evt.currentTarget.classList.add("active");
+<script>
+   function openMainCategory(evt, catName) {
+       var i, maincontent, mainbtn;
+       maincontent = document.getElementsByClassName("main-category-content");
+       for (i = 0; i < maincontent.length; i++) {
+           maincontent[i].classList.remove("active");
+       }
+       mainbtn = document.getElementsByClassName("main-cat-btn");
+       for (i = 0; i < mainbtn.length; i++) {
+           mainbtn[i].classList.remove("active");
+       }
+       document.getElementById(catName).classList.add("active");
+       evt.currentTarget.classList.add("active");
+   }
+
+   function openPackage(evt, pkgName) {
+       var i, tabcontent, tablinks;
+       tabcontent = document.getElementsByClassName("tab-content");
+       for (i = 0; i < tabcontent.length; i++) {
+           tabcontent[i].style.display = "none";
+       }
+       tablinks = document.getElementsByClassName("tab-btn");
+       for (i = 0; i < tablinks.length; i++) {
+           tablinks[i].classList.remove("active");
+       }
+       document.getElementById(pkgName).style.display = "block";
+       evt.currentTarget.classList.add("active");
+   }
+
+   function toggleExplanation() {
+       var content = document.getElementById("course-details");
+       if (content.style.display === "block") {
+           content.style.display = "none";
+       } else {
+           content.style.display = "block";
+       }
+   }
+
+   function toggleFeedback() {
+       var content = document.getElementById("feedback-details");
+       if (content.style.display === "block") {
+           content.style.display = "none";
+       } else {
+           content.style.display = "block";
+           renderPagination();
+       }
+   }
+
+   /* ------------------ Feedback Pagination Script ------------------ */
+   var currentPage = 1;
+   var itemsPerPage = 3;
+
+   function renderPagination() {
+       var cards = document.querySelectorAll('#feedback-gallery .feedback-card');
+       var totalPages = Math.ceil(cards.length / itemsPerPage);
+
+       if (totalPages <= 1) {
+           document.getElementById('pagination-controls').style.display = 'none';
+       } else {
+           document.getElementById('pagination-controls').style.display = 'flex';
        }
 
-       function openPackage(evt, pkgName) {
-           var i, tabcontent, tablinks;
-           tabcontent = document.getElementsByClassName("tab-content");
-           for (i = 0; i < tabcontent.length; i++) {
-               tabcontent[i].style.display = "none";
-           }
-           tablinks = document.getElementsByClassName("tab-btn");
-           for (i = 0; i < tablinks.length; i++) {
-               tablinks[i].classList.remove("active");
-           }
-           document.getElementById(pkgName).style.display = "block";
-           evt.currentTarget.classList.add("active");
-       }
+       showPage(currentPage);
+   }
 
-       function toggleExplanation() {
-           var content = document.getElementById("course-details");
-           if (content.style.display === "block") {
-               content.style.display = "none";
+   function showPage(page) {
+       var cards = document.querySelectorAll('#feedback-gallery .feedback-card');
+       var totalPages = Math.ceil(cards.length / itemsPerPage);
+       
+       if (page < 1) page = 1;
+       if (page > totalPages) page = totalPages;
+       currentPage = page;
+
+       var start = (page - 1) * itemsPerPage;
+       var end = start + itemsPerPage;
+
+       cards.forEach(function(card, index) {
+           if (index >= start && index < end) {
+               card.classList.add('active-img');
            } else {
-               content.style.display = "block";
+               card.classList.remove('active-img');
            }
+       });
+
+       var paginationControls = document.getElementById('pagination-controls');
+       var html = '';
+
+       // Prev Button
+       html += '<button class="page-btn" onclick="showPage(' + (currentPage - 1) + ')" ' + (currentPage === 1 ? 'disabled' : '') + '><i class="fas fa-chevron-left"></i></button>';
+
+       // Page Numbers
+       for (var i = 1; i <= totalPages; i++) {
+           html += '<button class="page-btn ' + (i === currentPage ? 'active-page' : '') + '" onclick="showPage(' + i + ')">' + i + '</button>';
        }
-   </script>
+
+       // Next Button
+       html += '<button class="page-btn" onclick="showPage(' + (currentPage + 1) + ')" ' + (currentPage === totalPages ? 'disabled' : '') + '><i class="fas fa-chevron-right"></i></button>';
+
+       paginationControls.innerHTML = html;
+
+       // ⬇️ سکڕۆڵکردنەوە بۆ سەرەوەی وێنەکان بە نەرمی
+       var gallery = document.getElementById('feedback-gallery');
+       if (gallery) {
+           gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
+       }
+   }
+</script>
 </body>
 </html>
