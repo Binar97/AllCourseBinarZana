@@ -340,6 +340,167 @@
     box-shadow: 0 0 25px rgba(255, 107, 0, 0.8);
 }
 
+/* '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' */
+
+/* Container & Dynamic Glowing Aura */
+.course-slider-container {
+    width: 100%;
+    margin-bottom: 30px;
+    position: relative;
+    border-radius: 20px;
+    padding: 3px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(236, 72, 153, 0.4), rgba(59, 130, 246, 0.6));
+    box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.4),
+                0 0 25px rgba(236, 72, 153, 0.25);
+    transition: all 0.5s ease;
+}
+
+.course-slider-container:hover {
+    box-shadow: 0 15px 40px -5px rgba(59, 130, 246, 0.7),
+                0 0 35px rgba(236, 72, 153, 0.5);
+}
+
+/* 3D Perspective Wrapper */
+.slider-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 150px;
+    overflow: hidden;
+    border-radius: 18px;
+    background: rgba(15, 23, 42, 0.95);
+    perspective: 1200px; /* بنچینەی دروستکردنی بۆشایی 3D */
+    backdrop-filter: blur(12px);
+}
+
+.slider-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* 3D Page Flip Style */
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    box-sizing: border-box;
+    padding: 10px;
+    transform-origin: right center; /* تەوەرەی هەڵدانەوەی وەڕەقەکە لە لای ڕاستەوە */
+    transform: rotateY(-90deg) scale(0.9); /* لادان وەک وەڕەقەی کتێب */
+    transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1), 
+                opacity 0.6s ease, 
+                visibility 0.8s;
+    backface-visibility: hidden;
+}
+
+/* Active Flip Slide */
+.slide.active-slide {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    transform: rotateY(0deg) scale(1);
+    z-index: 2;
+}
+
+/* Slide Leaving (Exiting Flip Animation) */
+.slide.exit-slide {
+    transform: rotateY(90deg) scale(0.9);
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Glassmorphism Card & Lighting Shimmer */
+.slide-card {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.03);
+}
+
+/* Light Sweep Effect across Card */
+.slide-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        60deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    transform: rotate(30deg);
+    transition: all 0.8s ease;
+    opacity: 0;
+}
+
+.slide.active-slide .slide-card::after {
+    opacity: 1;
+    animation: lightSweep 2.5s infinite;
+}
+
+@keyframes lightSweep {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    100% { transform: translateX(100%) rotate(30deg); }
+}
+
+/* Glowing Tag Style */
+.slide-tag {
+    display: inline-block;
+    margin-top: 10px;
+    background: rgba(59, 130, 246, 0.18);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    color: #93c5fd;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Futuristic Glowing Dots Controls */
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+.slider-dots .dot {
+    width: 9px;
+    height: 9px;
+    background-color: rgba(156, 163, 175, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slider-dots .dot.active {
+    background: linear-gradient(90deg, #3b82f6, #ec4899);
+    width: 28px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(236, 72, 153, 0.8);
+}
+
+
+/* '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''' */
+
 /* ئەنیمەیشنی چوونە دواوە و هاتنە پێشەوە لەگەڵ خوولانەوە */
 
     </style>
@@ -503,6 +664,57 @@
        </div>
 
        <div class="about">
+        <!-- '''''''''''''''''''''' -->
+         <!-- Slider Section Start -->
+<div class="course-slider-container">
+    <div class="slider-wrapper">
+        <div class="slider-track" id="sliderTrack">
+            <!-- Slide 1 -->
+            <div class="slide">
+                <a href="https://youtu.be/gyQgYp9MV0M" target="_blank" class="workbox slide-card">
+                    <div class="work-badge">بیست و دوو</div>
+                    <div class="icon"><img src="images/cashier.png" alt="System"></div>
+                    <div class="desc">
+                        <h3>سیستەمی کاشێری</h3>
+                        <p>پڕۆگرام ئێکسڵ (داتابەیس مای ئێسکوێڵ وۆرک بێنچ)</p>
+                        <span class="slide-tag">ئاماژە: بەڕێوەبردنی خێرای خاڵی فرۆشتن (POS) و کۆگا</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide">
+                <a href="https://youtu.be/g6u7TzT9Lxg" target="_blank" class="workbox slide-card">
+                    <div class="work-badge">بیست و یەک</div>
+                    <div class="icon"><img src="images/DaftarQarz.png" alt="System"></div>
+                    <div class="desc">
+                        <h3>دەفتەر قەرز و مەسروفات</h3>
+                        <p>پڕۆگرام ئێکسڵ (داتابەیس مای ئێسکوێڵ وۆرک بێنچ)</p>
+                        <span class="slide-tag">ئاماژە: بەڕێوەبردنی قەرز و تێچووەکان</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide">
+                <a href="https://youtu.be/gyQgYp9MV0M" target="_blank" class="workbox slide-card">
+                    <div class="work-badge">بیستەم</div>
+                    <div class="icon"><img src="images/S10.ico" alt="System"></div>
+                    <div class="desc">
+                        <h3>سیستەمی بەڕێوەبردنی پارە</h3>
+                        <p>پڕۆگرام ئێکسڵ (داتابەیس مای ئێسکوێڵ وۆرک بێنچ)</p>
+                        <span class="slide-tag">ئاماژە: کۆنتڕۆڵی تەواوی دارایی و هاوسەنگی</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dots Pagination -->
+    <div class="slider-dots" id="sliderDots"></div>
+</div>
+<!-- Slider Section End -->
+
     <h1 class="about-title">دەربارەی کۆرسەکان</h1>
 
     <div class="about-content">
@@ -833,7 +1045,82 @@
 
        showPage(currentPage);
    }
+// ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+/* ------------------ 3D Page Flip Slider Script ------------------ */
+var currentSlide = 0;
+var slideInterval;
 
+function initSlider() {
+    var slides = document.querySelectorAll('#sliderTrack .slide');
+    var dotsContainer = document.getElementById('sliderDots');
+    var container = document.querySelector('.course-slider-container');
+    if (!slides.length || !dotsContainer) return;
+
+    dotsContainer.innerHTML = '';
+    slides.forEach(function(_, index) {
+        var dot = document.createElement('span');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.onclick = function() { goToSlide(index); };
+        dotsContainer.appendChild(dot);
+    });
+
+    if (container) {
+        container.addEventListener('mouseenter', stopAutoSlide);
+        container.addEventListener('mouseleave', startAutoSlide);
+    }
+
+    goToSlide(0);
+    startAutoSlide();
+}
+
+function goToSlide(index) {
+    var slides = document.querySelectorAll('#sliderTrack .slide');
+    var dots = document.querySelectorAll('#sliderDots .dot');
+    
+    if (!slides.length) return;
+
+    var prevSlide = currentSlide;
+
+    if (index >= slides.length) index = 0;
+    if (index < 0) index = slides.length - 1;
+
+    currentSlide = index;
+
+    slides.forEach(function(slide, i) {
+        slide.classList.remove('active-slide', 'exit-slide');
+        
+        if (i === currentSlide) {
+            slide.classList.add('active-slide');
+        } else if (i === prevSlide && prevSlide !== currentSlide) {
+            slide.classList.add('exit-slide'); // پێدانی ئانیمەیشنی ڕۆشتن بە وەڕەقەی پێشوو
+        }
+    });
+
+    dots.forEach(function(dot, i) {
+        if (i === currentSlide) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+function startAutoSlide() {
+    stopAutoSlide();
+    slideInterval = setInterval(function() {
+        goToSlide(currentSlide + 1);
+    }, 4500); // ٤.٥ چرکە بۆ هەردانی هەر وەڕەقەیەک
+}
+
+function stopAutoSlide() {
+    if (slideInterval) clearInterval(slideInterval);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    initSlider();
+});
+// ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
    function showPage(page) {
        var cards = document.querySelectorAll('#feedback-gallery .feedback-card');
        var totalPages = Math.ceil(cards.length / itemsPerPage);
