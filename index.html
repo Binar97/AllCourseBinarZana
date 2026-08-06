@@ -675,6 +675,46 @@
     background: linear-gradient(135deg, #ef4444, #dc2626);
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.6);
 }
+/* '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''' */
+/* AI Subtitle Display Box */
+.ai-caption-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    border-radius: 8px;
+    padding: 6px 10px;
+    margin: 6px 0;
+    min-height: 28px;
+    transition: all 0.3s ease;
+}
+
+.ai-icon {
+    color: #60a5fa;
+    font-size: 11px;
+    animation: pulseIcon 2s infinite alternate;
+}
+
+#aiSubtitleText {
+    font-size: 0.8rem;
+    color: #e2e8f0;
+    margin: 0;
+    line-height: 1.4;
+    transition: opacity 0.2s ease;
+}
+
+@keyframes pulseIcon {
+    0% { transform: scale(0.9); opacity: 0.7; }
+    100% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 5px #60a5fa); }
+}
+.ai-caption-box {
+    min-height: 55px; /* بەرزێکی جێگیر تا شاشەکە تێکنەچێت */
+}
+
+#aiSubtitleText {
+    transition: none; /* لادانی ئانیمەیشن بۆ ئەوەی ڕاستەوخۆ و ڕوون بێتەوە */
+}
 /* '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''' */
 
 /* ئەنیمەیشنی چوونە دواوە و هاتنە پێشەوە لەگەڵ خوولانەوە */
@@ -747,42 +787,43 @@
                     </div>
                  </div>
 
-                                <!-- Voice Player Item -->
-                <div class="contact-item voice-item">
-                    <div class="icon-box">
-                        <i class="fas fa-microphone" id="voiceIcon"></i>
-                    </div>
-                    
-                    <div class="info">
-                        <div class="voice-header">
-                            <span class="label">تەواوی زانیاریی کۆرسەکە</span>
-                            <!-- Timer Display -->
-                            <span class="voice-timer" id="voiceTimer">00:00 / 00:00</span>
-                        </div>
-
-                        <!-- Dynamic Seekbar / Timeline -->
-                        <div class="timeline-container">
-                            <input type="range" id="voiceSeekbar" class="voice-seekbar" value="0" min="0" max="100" step="0.1" oninput="seekVoice(this.value)">
-                        </div>
-
-                        <!-- Voice Equalizer Animation -->
-                        <div class="voice-wave-container" id="voiceWave">
-                            <span class="bar"></span>
-                            <span class="bar"></span>
-                            <span class="bar"></span>
-                            <span class="bar"></span>
-                            <span class="bar"></span>
-                        </div>
+            <!-- Voice Player Item -->
+            <div class="contact-item voice-item">
+                <div class="icon-box">
+                    <i class="fas fa-microphone" id="voiceIcon"></i>
+                </div>
+                
+                <div class="info">
+                    <div class="voice-header">
+                        <span class="label">تەواوی زانیاریی کۆرسەکە</span>
+                        <span class="voice-timer" id="voiceTimer">00:00 / 00:00</span>
                     </div>
 
-                    <button class="voice-play-btn" onclick="toggleVoice()" type="button">
-                        <i class="fas fa-play" id="playBtnIcon"></i>
-                    </button>
-                    
-                    <!-- Audio File -->
-                    <audio id="courseAudio" src="images/Voice Test.mp3" preload="metadata"></audio>
+                    <div class="timeline-container">
+                        <input type="range" id="voiceSeekbar" class="voice-seekbar" value="0" min="0" max="100" step="0.1" oninput="seekVoice(this.value)">
+                    </div>
+
+                    <!-- Dynamic AI Subtitle Display -->
+                    <div class="ai-caption-box">
+                        <i class="fas fa-sparkles ai-icon"></i>
+                        <p id="aiSubtitleText">دەستپێبکە بۆ بیستنی زانیارییەکان...</p>
+                    </div>
+
+                    <div class="voice-wave-container" id="voiceWave">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
                 </div>
 
+                <button class="voice-play-btn" onclick="toggleVoice()" type="button">
+                    <i class="fas fa-play" id="playBtnIcon"></i>
+                </button>
+                
+                <audio id="courseAudio" src="images/Voice Test.mp3" preload="metadata"></audio>
+            </div>
 <!-- '''''''''''''''''''''''''''''''''''''''''''''''''' -->
             </div>
                <button class="download-btn" onclick="window.location.href='https://drive.google.com/file/d/1VSwZKALonzEmOwz_D5pEtlPbw8ySUJ5n/view?usp=sharing'">
@@ -1210,6 +1251,132 @@
    </div>
 
 <script>
+    /* ------------------ Sync AI Subtitle Script ------------------ */
+
+// 📝 لێرەدا کاتەکان (بە چرکە) و ڕستەکانی ناو دەنگەکە بنووسە:
+var voiceCaptions = [
+    { time: 0, text: " بەڕێزم سڵاوت لێ بێت تەندروستی بەڕێزت چۆنە؟" },
+    { time: 3, text: " لە کۆرسی ئاستی باڵای Excel دا یانزە سیستەمی داتابەیسی پێشکەوتوو و پڕۆفێشناڵ دروست دەکەین" },
+    { time: 8, text: "🚀 🎓 ئەم کۆرسە بۆ کەسێکە کە بیەوێت عەرزی تواناکانی بکات لە کۆمپانیا و نووسینگە و فرۆشگاکان. " },
+    { time: 14, text: "بەتەواوەتی فێری Visual Basic ئەکرێیت، فێری Excel بەتەواوەتی ئەکرێیت وە فێری MySQLیش ئەکرێیت کە بازاڕی کار هەمووی پێویستی پێیەتی" },
+    { time: 23, text: "لە سەفرەوە بۆ سەد فێری هەموو شتێک دەکرێیت بەبێ کەم و کوڕی و بە بەرزترین ئاستی سەردەمییانە. " },
+    { time: 30, text: " 🎓 ئەو سیستەمانە دروست دەکەین کە خودی خۆم بۆ کۆمپانییا و شەریکات و موحاسب و HR و نووسینگە و فرۆشگا و دوکانەکانم دروست کردووە. " },
+    { time: 38.5, text: "وە شتانەکت فێر دەکەین کە ڕۆژێک لە ڕۆژان بیرت نەکربێتەوە کە ئاستت بگاتە ئەو ئاستە بەرزەی داواکاری کۆمپانییاکان وەربگریت و سیستەمیان بۆ دروست بکەیت بە ئاستێکی تەواو و پڕۆفێشناڵ. " },
+    { time: 49, text: "چونکە ئەم کۆرسە لە سەفرەوە بۆ سەد فێر دەکرێیت و هیچمان جێ نەهێشتووە تۆ بتوانی پرسیار بکەیت و گلەیی بکەیت. " },
+    { time: 55.5, text: "کۆرسەکە ئاستی باڵایە و تەنانەت فێری ئەوەشت دەکەین کە چۆن سیستەم بکەیت بە ئۆنلاین و یاخوود چۆن بە ئۆفلاین چەند کۆمپیوتەرێک پێکەوە ببەستیتەوە و داتایان لەگەڵ یەکتردا بێت. وە چەندین کەس بەکاری بهێنیت لەسەر چەند کۆمپیوتەرێکی جیاواز.  " },
+    { time: 71, text: "وەک مارکێتەکان کە چەند کۆمپیوتەرێکی كاشێری لەسەر یەك داتا ئیش دەکەن و داتایان دەچێت بۆ یەکتری.  " },
+    { time: 77, text: "وە هەر شەریکاتێک بزانێ ئەم توانایانەت هەیە، دڵنیابە دەسبەردارت نابێت.  " },
+    { time: 82, text: "ئەم کۆرسە ڤیدیۆی تۆمارکراوە لە گروپی Telegram دانراون. بە پێی مەجالی خۆت دەتوانی سەیری وانەکان بکەیت.  " },
+    { time: 89, text: "هەر سیستەمێک لە گروپێکی تایبەت بە خۆی دا دانراوە بۆ ئەوەی تێکەڵاوبوون ڕوو نەدات و بە ئاسانی بتوانی هەر سیستەمێک دروست بکەیتەوە بەبێ قەرەباڵغی  " },
+    { time: 98.5, text: " وە سەرجەم پێداویستیەکانت پێ دەدرێت و گرنگترین بەشی کۆرسەکەم ئەوەیە کە هەمیشە یارمەتی خۆمت لەگەڵدایە  " },
+    { time: 105, text: " کە تووشی هەر کێشەیەک ببیت ڕاستەخۆ یارمەتیت دەدەم و بۆت چارەسەر دەکەم و پێشت ئەڵێم هەڵەکەشت لەکوێ دابووە  " },
+    { time: 111, text: " بە مانای ئەوەی هیچ وانەیەک بەبێ فێربوون تێناپەڕێنی " }
+];
+
+var audio = document.getElementById('courseAudio');
+var seekbar = document.getElementById('voiceSeekbar');
+var timerDisplay = document.getElementById('voiceTimer');
+var playIcon = document.getElementById('playBtnIcon');
+var voiceItem = document.querySelector('.voice-item');
+var subtitleDisplay = document.getElementById('aiSubtitleText');
+
+function updateSeekbarBackground(percent) {
+    if (!seekbar) return;
+    seekbar.style.background = 'linear-gradient(to left, #f97316 ' + percent + '%, rgba(255, 255, 255, 0.15) ' + percent + '%)';
+}
+
+var lastCaptionIndex = -1;
+
+function updateAISubtitle(currentTime) {
+    if (!subtitleDisplay) return;
+    
+    var currentIndex = 0;
+    for (var i = 0; i < voiceCaptions.length; i++) {
+        if (currentTime >= voiceCaptions[i].time) {
+            currentIndex = i;
+        }
+    }
+    
+    if (currentIndex !== lastCaptionIndex) {
+        lastCaptionIndex = currentIndex;
+        
+        // ڕاستەوخۆ دەقەکە نوێ دەکاتەوە بەبێ کێشە و بێ پرتەپرت
+        subtitleDisplay.innerText = voiceCaptions[currentIndex].text;
+    }
+}
+
+if (audio) {
+    audio.addEventListener('loadedmetadata', function() {
+        updateTimerDisplay();
+    });
+
+    audio.addEventListener('timeupdate', function() {
+        if (!isNaN(audio.duration) && audio.duration > 0) {
+            var progress = (audio.currentTime / audio.duration) * 100;
+            seekbar.value = progress;
+            updateSeekbarBackground(progress);
+            updateTimerDisplay();
+            
+            // 🌟 نوێکردنەوەی ژێرنووسەکە لە هەر چرکەیەکدا
+            updateAISubtitle(audio.currentTime);
+        }
+    });
+
+    audio.addEventListener('ended', function() {
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+        if (voiceItem) voiceItem.classList.remove('playing');
+        seekbar.value = 0;
+        updateSeekbarBackground(0);
+        updateTimerDisplay();
+        if (subtitleDisplay) subtitleDisplay.innerText = "دەستپێبکە بۆ بیستنی زانیارییەکان...";
+    });
+}
+
+function seekVoice(value) {
+    if (audio && !isNaN(audio.duration) && audio.duration > 0) {
+        var seekTime = (value / 100) * audio.duration;
+        audio.currentTime = seekTime;
+        updateSeekbarBackground(value);
+        updateAISubtitle(seekTime);
+    }
+}
+
+function toggleVoice() {
+    if (!audio) return;
+
+    if (audio.paused) {
+        audio.play().then(function() {
+            playIcon.classList.remove('fa-pause');
+            playIcon.classList.add('fa-pause');
+            if (voiceItem) voiceItem.classList.add('playing');
+        });
+    } else {
+        audio.pause();
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+        if (voiceItem) voiceItem.classList.remove('playing');
+    }
+}
+
+function formatTime(seconds) {
+    if (isNaN(seconds)) return "00:00";
+    var min = Math.floor(seconds / 60);
+    var sec = Math.floor(seconds % 60);
+    if (min < 10) min = "0" + min;
+    if (sec < 10) sec = "0" + sec;
+    return min + ":" + sec;
+}
+
+function updateTimerDisplay() {
+    if (timerDisplay && audio) {
+        timerDisplay.innerText = formatTime(audio.currentTime) + " / " + formatTime(audio.duration);
+    }
+}
+
+
+
+// ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
    function openMainCategory(evt, catName) {
        var i, maincontent, mainbtn;
        maincontent = document.getElementsByClassName("main-category-content");
