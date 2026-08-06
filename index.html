@@ -547,7 +547,134 @@
     box-shadow: 0 0 12px rgba(168, 85, 247, 0.8);
 }
 
+/* Voice Box Container Structure */
+.voice-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    margin-top: 12px;
+    transition: all 0.3s ease;
+}
 
+.voice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.voice-timer {
+    font-size: 11px;
+    color: #94a3b8;
+    font-family: monospace;
+}
+
+/* Timeline / Seekbar Styling (RTL Added) */
+.timeline-container {
+    width: 100%;
+    margin: 4px 0 6px 0;
+    direction: rtl; /* 🔴 ئەمە خڕەکە و دەستپێکردنەکە دەباتە دەستە ڕاست */
+}
+
+/* Custom Orange Seekbar Track & Glow */
+.voice-seekbar {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.15); /* له JS-دا به ڕه نگی پڕته قاڵی ڕاست بۆ چه پ پڕ دەبێتەوە */
+    outline: none;
+    cursor: pointer;
+    transition: background 0.1s linear;
+}
+
+/* Custom Seekbar Thumb (دەنکۆڵەی پڕتەقاڵی) */
+.voice-seekbar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #f97316;
+    box-shadow: 0 0 10px #f97316, 0 0 18px rgba(249, 115, 22, 0.8);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.voice-seekbar::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+    background: #fb923c;
+}
+
+.voice-seekbar::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border: none;
+    border-radius: 50%;
+    background: #f97316;
+    box-shadow: 0 0 10px #f97316, 0 0 18px rgba(249, 115, 22, 0.8);
+    cursor: pointer;
+}
+
+/* Equalizer Bars Styling */
+.voice-wave-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 10px;
+}
+
+.voice-wave-container .bar {
+    width: 3px;
+    height: 100%;
+    background: rgba(147, 197, 253, 0.2);
+    border-radius: 3px;
+}
+
+.voice-item.playing .bar {
+    background: linear-gradient(180deg, #60a5fa, #3b82f6);
+    box-shadow: 0 0 6px rgba(96, 165, 250, 0.8);
+    animation: waveBounce 1.2s infinite ease-in-out alternate;
+}
+
+.voice-item.playing .bar:nth-child(1) { animation-delay: 0.1s; }
+.voice-item.playing .bar:nth-child(2) { animation-delay: 0.3s; }
+.voice-item.playing .bar:nth-child(3) { animation-delay: 0.5s; }
+.voice-item.playing .bar:nth-child(4) { animation-delay: 0.2s; }
+.voice-item.playing .bar:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes waveBounce {
+    0% { height: 20%; }
+    100% { height: 100%; }
+}
+
+/* Play Button Glow */
+.voice-play-btn {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    border: none;
+    color: #ffffff;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.voice-item.playing .voice-play-btn {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.6);
+}
 /* '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''' */
 
 /* ئەنیمەیشنی چوونە دواوە و هاتنە پێشەوە لەگەڵ خوولانەوە */
@@ -620,6 +747,43 @@
                     </div>
                  </div>
 
+                                <!-- Voice Player Item -->
+                <div class="contact-item voice-item">
+                    <div class="icon-box">
+                        <i class="fas fa-microphone" id="voiceIcon"></i>
+                    </div>
+                    
+                    <div class="info">
+                        <div class="voice-header">
+                            <span class="label">تەواوی زانیاریی کۆرسەکە</span>
+                            <!-- Timer Display -->
+                            <span class="voice-timer" id="voiceTimer">00:00 / 00:00</span>
+                        </div>
+
+                        <!-- Dynamic Seekbar / Timeline -->
+                        <div class="timeline-container">
+                            <input type="range" id="voiceSeekbar" class="voice-seekbar" value="0" min="0" max="100" step="0.1" oninput="seekVoice(this.value)">
+                        </div>
+
+                        <!-- Voice Equalizer Animation -->
+                        <div class="voice-wave-container" id="voiceWave">
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                        </div>
+                    </div>
+
+                    <button class="voice-play-btn" onclick="toggleVoice()" type="button">
+                        <i class="fas fa-play" id="playBtnIcon"></i>
+                    </button>
+                    
+                    <!-- Audio File -->
+                    <audio id="courseAudio" src="images/Voice Test.mp3" preload="metadata"></audio>
+                </div>
+
+<!-- '''''''''''''''''''''''''''''''''''''''''''''''''' -->
             </div>
                <button class="download-btn" onclick="window.location.href='https://drive.google.com/file/d/1VSwZKALonzEmOwz_D5pEtlPbw8ySUJ5n/view?usp=sharing'">
                 <i class="fa fa-download"></i> کلیک لێرە بکە بۆ زانیاری تەواوی کۆرسەکە</button>
@@ -721,7 +885,7 @@
             <!-- Slide 1 -->
             <div class="slide">
                 <a href="https://youtu.be/gyQgYp9MV0M" target="_blank" class="workbox slide-card">
-                    <div class="work-badge">کاشێر</div>
+                    <div class="work-badge">بیست و دوو</div>
                     <div class="icon"><img src="images/cashier.png" alt="System"></div>
                     <div class="desc">
                         <h3>سیستەمی کاشێری</h3>
@@ -733,7 +897,7 @@
 
             <div class="slide">
                 <a href="https://youtu.be/gyQgYp9MV0M" target="_blank" class="workbox slide-card">
-                    <div class="work-badge">بەنزینخانە</div>
+                    <div class="work-badge">نوێ</div>
                     <div class="icon"><img src="images/S19.png" alt="System"></div>
                     <div class="desc">
                         <h3>سیستەمی بەنزینخانە</h3>
@@ -743,22 +907,10 @@
                 </a>
             </div>
 
-             <div class="slide">
-                <a href="https://youtu.be/g6u7TzT9Lxg" target="_blank" class="workbox slide-card">
-                    <div class="work-badge">فاست فوود</div>
-                    <div class="icon"><img src="images/S18.png" alt="System"></div>
-                    <div class="desc">
-                        <h3>سیستەمی فاست فوود</h3>
-                        <p>پڕۆگرام ئێکسڵ (داتابەیس مای ئێسکوێڵ وۆرک بێنچ)</p>
-                        <span class="slide-tag">ئاماژە:قەرز و فرۆشتن  بە لێزەر و ناوی کاڵا </span>
-                    </div>
-                </a>
-            </div>
-
             <!-- Slide 2 -->
             <div class="slide">
                 <a href="https://youtu.be/g6u7TzT9Lxg" target="_blank" class="workbox slide-card">
-                    <div class="work-badge">مەسروفات</div>
+                    <div class="work-badge">بیست و یەک</div>
                     <div class="icon"><img src="images/DaftarQarz.png" alt="System"></div>
                     <div class="desc">
                         <h3>دەفتەر قەرز و مەسروفات</h3>
@@ -771,7 +923,7 @@
             <!-- Slide 3 -->
             <div class="slide">
                 <a href="https://youtu.be/gyQgYp9MV0M" target="_blank" class="workbox slide-card">
-                    <div class="work-badge">ژمێریاری</div>
+                    <div class="work-badge">بیستەم</div>
                     <div class="icon"><img src="images/S10.ico" alt="System"></div>
                     <div class="desc">
                         <h3>سیستەمی بەڕێوەبردنی پارە</h3>
@@ -1196,6 +1348,88 @@ function stopAutoSlide() {
 document.addEventListener('DOMContentLoaded', function() {
     initSlider();
 });
+
+
+/* ------------------ Voice Player Script ------------------ */
+/* ------------------ Dynamic Orange Progress Seekbar ------------------ */
+var audio = document.getElementById('courseAudio');
+var seekbar = document.getElementById('voiceSeekbar');
+var timerDisplay = document.getElementById('voiceTimer');
+var playIcon = document.getElementById('playBtnIcon');
+var voiceItem = document.querySelector('.voice-item');
+
+// فەنکشن بۆ پڕکردنەوەی خەتی تایملاینەکە بە ڕەنگی پڕتەقاڵی
+function updateSeekbarBackground(percent) {
+    if (!seekbar) return;
+    seekbar.style.background = 'linear-gradient(to left, #f97316 ' + percent + '%, rgba(255, 255, 255, 0.15) ' + percent + '%)';
+}
+
+if (audio) {
+    audio.addEventListener('loadedmetadata', function() {
+        updateTimerDisplay();
+    });
+
+    // نوێکردنەوە لە کاتی ڕۆشتنی دەنگەکەدا
+    audio.addEventListener('timeupdate', function() {
+        if (!isNaN(audio.duration) && audio.duration > 0) {
+            var progress = (audio.currentTime / audio.duration) * 100;
+            seekbar.value = progress;
+            updateSeekbarBackground(progress);
+            updateTimerDisplay();
+        }
+    });
+
+    audio.addEventListener('ended', function() {
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+        if (voiceItem) voiceItem.classList.remove('playing');
+        seekbar.value = 0;
+        updateSeekbarBackground(0);
+        updateTimerDisplay();
+    });
+}
+
+// کاتێک بەکارهێنەر ڕایکێشێت یان کلیکی لەسەر بکات
+function seekVoice(value) {
+    if (audio && !isNaN(audio.duration) && audio.duration > 0) {
+        var seekTime = (value / 100) * audio.duration;
+        audio.currentTime = seekTime;
+        updateSeekbarBackground(value);
+    }
+}
+
+// فەنکشنی لێدان و ڕاگرتن
+function toggleVoice() {
+    if (!audio) return;
+
+    if (audio.paused) {
+        audio.play().then(function() {
+            playIcon.classList.remove('fa-play');
+            playIcon.classList.add('fa-pause');
+            if (voiceItem) voiceItem.classList.add('playing');
+        });
+    } else {
+        audio.pause();
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+        if (voiceItem) voiceItem.classList.remove('playing');
+    }
+}
+
+function formatTime(seconds) {
+    if (isNaN(seconds)) return "00:00";
+    var min = Math.floor(seconds / 60);
+    var sec = Math.floor(seconds % 60);
+    if (min < 10) min = "0" + min;
+    if (sec < 10) sec = "0" + sec;
+    return min + ":" + sec;
+}
+
+function updateTimerDisplay() {
+    if (timerDisplay && audio) {
+        timerDisplay.innerText = formatTime(audio.currentTime) + " / " + formatTime(audio.duration);
+    }
+}
 // ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
    function showPage(page) {
        var cards = document.querySelectorAll('#feedback-gallery .feedback-card');
