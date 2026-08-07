@@ -715,6 +715,181 @@
 #aiSubtitleText {
     transition: none; /* لادانی ئانیمەیشن بۆ ئەوەی ڕاستەوخۆ و ڕوون بێتەوە */
 }
+
+#aiSubtitleText {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+}
+
+#aiSubtitleText.fade-out {
+    opacity: 0;
+}
+/* '''''''''''''''''''''''داشكاندن''''''' */
+/* Container Glow & Breathing Animation */
+.course-promo {
+    position: relative;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    border: 2px solid #ff6b00;
+    border-radius: 20px;
+    padding: 32px 24px 24px 24px; /* پادینگی سەرەوە زیادکراوە تا باجەکە نەنوسێت بە سەردێڕەکەوە */
+    margin: 30px 0 25px 0;
+    direction: rtl;
+    text-align: right;
+    overflow: visible; /* ڕێگە دەدات باجەکە کەمێک بچێتە دەرەوەی کاڕدەکە بۆ دیزاینێکی مۆدێرنتر */
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 107, 0, 0.4);
+    animation: neonGlow 3s infinite alternate;
+}
+
+/* ڵایتینگی دروەشاوە بۆ سنووری کاڕدەکە */
+@keyframes neonGlow {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 107, 0, 0.3), 0 0 20px rgba(255, 107, 0, 0.1);
+        border-color: #ff6b00;
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 0, 128, 0.6), 0 0 35px rgba(255, 107, 0, 0.4);
+        border-color: #ff0080;
+    }
+    100% {
+        box-shadow: 0 0 25px rgba(255, 107, 0, 0.8), 0 0 50px rgba(255, 107, 0, 0.5);
+        border-color: #ff6b00;
+    }
+}
+
+/* Shine Effect */
+.course-promo::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        60deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.15) 50%,
+        transparent 70%
+    );
+    transform: rotate(30deg);
+    animation: shinePass 4s infinite;
+    pointer-events: none;
+    border-radius: 20px;
+}
+
+@keyframes shinePass {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    20% { transform: translateX(100%) rotate(30deg); }
+    100% { transform: translateX(100%) rotate(30deg); }
+}
+
+/* Badge Layout - خستنە سەرەوە و جیاکردنەوەی ئۆفەرەکە */
+.promo-badge-container {
+    position: absolute;
+    top: -14px; /* باجەکە دەخاتە سەر سنووری سەرەوەی کاڕدەکە */
+    left: 20px;
+    z-index: 2;
+}
+
+.promo-badge {
+    background: linear-gradient(45deg, #ff0080, #ff6b00);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 15px rgba(255, 0, 128, 0.5);
+    animation: badgePulse 1.5s infinite;
+}
+
+@keyframes badgePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+    100% { transform: scale(1); }
+}
+
+/* Header & Title - بەشی ناوەڕۆک */
+.promo-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 5px; /* بۆ دوورکەوتنەوە لە باجەکە */
+    margin-bottom: 8px;
+}
+
+.promo-icon {
+    font-size: 1.8rem;
+    color: #ffaa00;
+    text-shadow: 0 0 10px rgba(255, 170, 0, 0.8);
+}
+
+.promo-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.promo-description {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin: 0 0 18px 0;
+}
+
+/* بەشی نرخەکان */
+.promo-price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 20px;
+    border-radius: 14px;
+    width: fit-content;
+}
+
+.price-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-bottom: 2px;
+}
+
+.old-price {
+    color: #ef4444;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-decoration: line-through;
+}
+
+.discount-arrow {
+    color: #ffaa00;
+    font-size: 1.1rem;
+    animation: arrowBounce 1s infinite alternate;
+}
+
+@keyframes arrowBounce {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-5px); }
+}
+
+.new-price {
+    color: #4ade80;
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-shadow: 0 0 12px rgba(74, 222, 128, 0.6);
+}
+
+.new-price small {
+    font-size: 0.85rem;
+    color: #86efac;
+}
+
 /* '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''' */
 
 /* ئەنیمەیشنی چوونە دواوە و هاتنە پێشەوە لەگەڵ خوولانەوە */
@@ -823,9 +998,56 @@
                 </button>
                 
                 <audio id="courseAudio" src="images/Voice Test.mp3" preload="metadata"></audio>
+
             </div>
-<!-- '''''''''''''''''''''''''''''''''''''''''''''''''' -->
+
             </div>
+             <!-- <div id="coursePromo" class="course-promo hidden">
+                                        <span>کۆرسی ئاستی باڵای ئێکسڵ</span>
+                                        <span class="promo-price">
+                                            داشکاندن: <del>250,000</del> <strong>99,000</strong> دینار
+                                        </span>
+                                    </div> -->
+
+                                <!-- Promo / Discount Card -->
+                                       <!-- Promo / Discount Card -->
+<div id="coursePromo" class="course-promo">
+    <!-- Floating Offer Badge -->
+    <div class="promo-badge-container">
+        <span class="promo-badge">
+            <i class="fas fa-bolt"></i> ئۆفەری کاتی
+        </span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="promo-content">
+        <div class="promo-header">
+            <i class="fas fa-graduation-cap promo-icon"></i>
+            <h3 class="promo-title">کۆرسی ئاستی باڵای ئێکسڵ</h3>
+        </div>
+
+        <p class="promo-description">
+            تەواوی فێرکارییەکان بە شێوازی پڕۆفێشناڵ و کرداری
+        </p>
+
+        <div class="promo-price-wrapper">
+            <div class="old-price-box">
+                <span class="price-label">نرخی پێشوو</span>
+                <del class="old-price">250,000 IQD</del>
+            </div>
+            
+            <div class="discount-arrow">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+
+            <div class="new-price-box">
+                <span class="price-label">نرخی ئێستا</span>
+                <span class="new-price">99,000 <small>دینار</small></span>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- '''''''''''''''''''''''''''''''''''''''''''''''''' -->
                <button class="download-btn" onclick="window.location.href='https://drive.google.com/file/d/1VSwZKALonzEmOwz_D5pEtlPbw8ySUJ5n/view?usp=sharing'">
                 <i class="fa fa-download"></i> کلیک لێرە بکە بۆ زانیاری تەواوی کۆرسەکە</button>
                
@@ -1287,8 +1509,10 @@ function updateSeekbarBackground(percent) {
 
 var lastCaptionIndex = -1;
 
+var isFading = false;
+
 function updateAISubtitle(currentTime) {
-    if (!subtitleDisplay) return;
+    if (!subtitleDisplay || isFading) return;
     
     var currentIndex = 0;
     for (var i = 0; i < voiceCaptions.length; i++) {
@@ -1299,9 +1523,17 @@ function updateAISubtitle(currentTime) {
     
     if (currentIndex !== lastCaptionIndex) {
         lastCaptionIndex = currentIndex;
+        isFading = true;
         
-        // ڕاستەوخۆ دەقەکە نوێ دەکاتەوە بەبێ کێشە و بێ پرتەپرت
-        subtitleDisplay.innerText = voiceCaptions[currentIndex].text;
+        // ١. ونبوونی دەقی کۆن (Fade Out)
+        subtitleDisplay.classList.add('fade-out');
+        
+        // ٢. پاش ٣٠٠ میلی چرکە (کاتێک ونبوونەکە تەواو بوو)، دەقەکە دەگۆڕدرێت و دەردەکەوێتەوە (Fade In)
+        setTimeout(function() {
+            subtitleDisplay.innerText = voiceCaptions[currentIndex].text;
+            subtitleDisplay.classList.remove('fade-out');
+            isFading = false;
+        }, 300);
     }
 }
 
